@@ -24,20 +24,20 @@ public class DesafiorestApplicationPessoaTest {
 
     @Test
     public void createPessoaTest() {
-        Pessoa pessoa = new Pessoa("João", null, "Pontes", 29, Genero.MASCULINO, true);
+        Pessoa pessoa = new Pessoa("Thieles", null, "Martins", 31, Genero.MASCULINO, true);
         this.pessoaRepository.save(pessoa);
         assertThat(pessoa.getId()).isNotNull();
-        assertThat(pessoa.getNome()).isEqualTo("João");
+        assertThat(pessoa.getNome()).isEqualTo("Thieles");
         assertThat(pessoa.getEndereco()).isEqualTo(null);
-        assertThat(pessoa.getSobrenome()).isEqualTo("Pontes");
-        assertThat(pessoa.getIdade()).isEqualTo(29);
+        assertThat(pessoa.getSobrenome()).isEqualTo("Martins");
+        assertThat(pessoa.getIdade()).isEqualTo(31);
         assertThat(pessoa.getGenero()).isEqualTo(Genero.MASCULINO);
         assertThat(pessoa.getAtivo()).isEqualTo(true);
     }
 
     @Test
     public void deletePessoaTest() {
-        Pessoa pessoa = new Pessoa("João", null, "Pontes", 29, null, true);
+        Pessoa pessoa = new Pessoa("Thieles", null, "Martins", 31, Genero.MASCULINO, true);
         this.pessoaRepository.save(pessoa);
         pessoaRepository.delete(pessoa);
     }
