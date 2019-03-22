@@ -1,68 +1,40 @@
 package com.desafiorest.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 
-@Entity
-@Table(name = "endereco")
-@EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
+@Embeddable
 public class Endereco implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank
+    @Size(max = 150)
+    @Column(name = "logradouro")
     private String logradouro;
 
-    @NotBlank
+    @Size(max = 50)
+    @Column(name = "numero")
+    private String numero;
+
+    @Size(max = 200)
+    @Column(name = "complemento")
+    private String complemento;
+
+    @Size(max = 100)
+    @Column(name = "bairro")
     private String bairro;
 
-    @NotBlank
-    private String rua;
+    @Size(max = 80)
+    @Column(name = "cep")
+    private String cep;
 
-    @NotBlank
-    private Integer cep;
+    @Size(max = 150)
+    @Column(name = "cidade")
+    private String cidade;
 
-   /* @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_pessoas", nullable = false)
-    private Pessoas pessoas;*/
-
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
-
-    public Endereco() {}
-
-    public Endereco(String logradouro, String bairro, String rua, Integer cep) {
-        this.logradouro = logradouro;
-        this.bairro = bairro;
-        this.rua = rua;
-        this.cep = cep;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Size(max = 150)
+    @Column(name = "estado")
+    private String estado;
 
     public String getLogradouro() {
         return logradouro;
@@ -70,6 +42,22 @@ public class Endereco implements Serializable {
 
     public void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     public String getBairro() {
@@ -80,19 +68,27 @@ public class Endereco implements Serializable {
         this.bairro = bairro;
     }
 
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

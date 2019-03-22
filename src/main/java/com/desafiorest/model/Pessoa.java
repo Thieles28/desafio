@@ -15,29 +15,35 @@ import java.util.Date;
 @Table(name = "pessoas")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class Pessoas implements Serializable {
+public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotBlank
     @Size(max = 70)
+    @Column(name = "nome")
     private String nome;
 
     @NotBlank
     @Size(max = 100)
+    @Column(name = "sobrenome")
     private String sobrenome;
 
-    @NotBlank
+    @Column(name = "idade")
     private Integer idade;
 
-    @NotBlank
-    @Size(max = 50)
-    private String sexo;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "genero")
+    private Genero genero;
 
-   /* @OneToOne(fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL, mappedBy = "pessoas")
-    private Endereco endereco;*/
+    @Embedded
+    @Column(name = "endereco")
+    private Endereco endereco;
+
+    @Column(name = "ativo")
+    private Boolean ativo;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -49,13 +55,15 @@ public class Pessoas implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    public Pessoas() {}
+    public Pessoa() {}
 
-    public Pessoas(String nome, String sobrenome, Integer idade, String sexo) {
+    public Pessoa(@NotBlank @Size(max = 70) String nome, @NotBlank Endereco endereco, @NotBlank @Size(max = 100) String sobrenome, @NotBlank Integer idade, @NotBlank Genero genero, @NotBlank Boolean ativo) {
         this.nome = nome;
+        this.endereco = endereco;
         this.sobrenome = sobrenome;
         this.idade = idade;
-        this.sexo = sexo;
+        this.genero = genero;
+        this.ativo = ativo;
     }
 
     public Long getId() {
@@ -90,11 +98,27 @@ public class Pessoas implements Serializable {
         this.idade = idade;
     }
 
-    public String getSexo() {
-        return sexo;
+    public Genero getGenero() {
+        return genero;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }
